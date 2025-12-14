@@ -1,16 +1,76 @@
-# React + Vite
+# PDF to High-Res JPG Converter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Project Badge](https://img.shields.io/badge/Status-Active-success?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
+![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-purple?style=flat-square)
 
-Currently, two official plugins are available:
+A modern, fast, and secure web application to convert PDF documents into high-resolution JPG images. Designed with a focus on privacy, **files are processed entirely on your device** and never uploaded to a server.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📸 Preview
 
-## React Compiler
+![App Screenshot](./public/screenshot.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🔗 Live Demo
+Check out the live application here: **[https://pdf-to-jpg-five.vercel.app](https://pdf-to-jpg-five.vercel.app)**
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **🔒 100% Client-Side Privacy:** Your documents never leave your device. All conversion happens locally in the browser.
+* **⚡ High-Res Output:** Generates premium quality JPGs suitable for professional use.
+* **🚀 Lightning Fast:** Built with Vite for instant loading and rapid processing.
+* **📂 Drag & Drop Interface:** Simple, intuitive UI—just drop your file to start.
+* **🌑 Modern Dark Mode:** A clean, aesthetic user interface designed for focus.
+
+## 🛠️ Tech Stack
+
+* **Frontend Framework:** React.js
+* **Build Tool:** Vite
+* **Styling:** CSS / Tailwind (if applicable)
+* **PDF Engine:** pdf.js (Client-side rendering)
+
+## 🚀 Getting Started
+
+Follow these instructions to set up the project locally on your machine.
+
+### Prerequisites
+
+* Node.js (v14 or higher)
+* npm (v6 or higher)
+
+### Installation
+
+1.  **Clone the repository**
+    ```bash
+    git clone [https://github.com/saquibkhan413/PDF-to-JPG.git](https://github.com/saquibkhan413/PDF-to-JPG.git)
+    cd PDF-to-JPG
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Start the development server**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Open in Browser**
+    The application will launch at `http://localhost:5173`.
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have ideas for new features or improvements:
+
+1.  Fork the repository.
+2.  Create a feature branch (`git checkout -b feature/NewFeature`).
+3.  Commit your changes.
+4.  Push to the branch.
+5.  Open a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+**Developed by [Saquib Khan](https://github.com/saquibkhan413)**
