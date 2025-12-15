@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, FileType } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Upload } from 'lucide-react';
 
-const DropZone = ({ onFileSelect }) => {
+const DropZone = ({ onFileSelect, accept = { "application/pdf": [".pdf"] }, multiple = false, text = "Drop your PDF here" }) => {
     const [isDragActive, setIsDragActive] = useState(false);
 
     const handleDrag = (e) => {
@@ -20,25 +20,33 @@ const DropZone = ({ onFileSelect }) => {
         e.stopPropagation();
         setIsDragActive(false);
 
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFiles(e.dataTransfer.files[0]);
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            handleFiles(e.dataTransfer.files);
         }
     };
 
     const handleChange = (e) => {
         e.preventDefault();
-        if (e.target.files && e.target.files[0]) {
-            handleFiles(e.target.files[0]);
+        if (e.target.files && e.target.files.length > 0) {
+            handleFiles(e.target.files);
         }
     };
 
-    const handleFiles = (file) => {
-        if (file.type === 'application/pdf') {
-            onFileSelect(file);
+    const handleFiles = (files) => {
+        if (multiple) {
+            // validate types if needed, for now just pass all
+            // Filter based on accept type broadly if possible, or just trust the input for now and validation later
+            const fileArray = Array.from(files);
+            onFileSelect(fileArray);
         } else {
-            alert("Please upload a PDF file.");
+            if (files[0]) {
+                onFileSelect(files[0]);
+            }
         }
     };
+
+    // Construct accept string for input
+    const acceptString = Object.values(accept).flat().join(',');
 
     return (
         <motion.div
@@ -55,7 +63,8 @@ const DropZone = ({ onFileSelect }) => {
                 type="file"
                 id="file-upload"
                 className="hidden"
-                accept=".pdf"
+                accept={acceptString}
+                multiple={multiple}
                 onChange={handleChange}
             />
 
@@ -68,7 +77,7 @@ const DropZone = ({ onFileSelect }) => {
                 </div>
 
                 <h3 className="text-xl font-semibold mb-2 text-slate-200">
-                    Drop your PDF here
+                    {text}
                 </h3>
                 <p className="text-slate-400 mb-6">
                     or click to browse from your computer
