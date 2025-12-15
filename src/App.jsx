@@ -3,12 +3,13 @@ import DropZone from './components/DropZone';
 import Converter from './components/Converter';
 import JpgToPdfConverter from './components/JpgToPdfConverter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileHeart, Github, Zap } from 'lucide-react';
+import { FileHeart, Github, Zap, ArrowLeft, FileText, Images, ArrowRight } from 'lucide-react';
 
 function App() {
   const [file, setFile] = useState(null);
   const [fileList, setFileList] = useState([]);
   const [mode, setMode] = useState('pdf-to-jpg'); // 'pdf-to-jpg' | 'jpg-to-pdf'
+  const [view, setView] = useState('home'); // 'home' | 'converter'
 
   const handleFileSelect = (selected) => {
     if (mode === 'pdf-to-jpg') {
@@ -26,6 +27,17 @@ function App() {
     setFileList([]);
   };
 
+  const handleModeSelect = (selectedMode) => {
+    setMode(selectedMode);
+    setView('converter');
+    reset();
+  };
+
+  const goHome = () => {
+    setView('home');
+    reset();
+  };
+
   return (
     <div className="min-h-screen bg-bg-dark flex flex-col relative overflow-hidden">
       {/* Background Decor */}
@@ -36,7 +48,7 @@ function App() {
       {/* Navbar */}
       <nav className="relative z-10 border-b border-white/5 backdrop-blur-sm">
         <div className="container flex items-center justify-between py-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={goHome}>
             <div className="bg-gradient-to-br from-indigo-500 to-purple-500 p-2 rounded-lg">
               <FileHeart className="text-white" size={24} />
             </div>
@@ -55,82 +67,140 @@ function App() {
       {/* Main Content */}
       <main className="flex-1 container flex flex-col items-center justify-center relative z-10 py-12">
 
-        {/* Mode Toggler */}
-        {!file && fileList.length === 0 && (
-          <div className="bg-white/5 p-1 rounded-xl flex items-center mb-12 border border-white/10">
-            <button
-              onClick={() => setMode('pdf-to-jpg')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'pdf-to-jpg' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
-            >
-              PDF to JPG
-            </button>
-            <button
-              onClick={() => setMode('jpg-to-pdf')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${mode === 'jpg-to-pdf' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
-            >
-              JPG to PDF
-            </button>
-          </div>
-        )}
-
         <AnimatePresence mode='wait'>
-          {(!file && fileList.length === 0) ? (
+          {view === 'home' ? (
             <motion.div
-              key="landing"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="w-full flex flex-col items-center text-center"
+              key="home"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-4xl flex flex-col items-center"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm mb-6 animate-pulse-ring">
-                <Zap size={14} />
-                <span>100% Client-Side Conversion</span>
+              <div className="text-center mb-16">
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+                  Convert Files <span className="title-gradient">Instantly</span>
+                </h1>
+                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                  Choose your conversion tool. Secure, client-side, and free forever.
+                </p>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-                {mode === 'pdf-to-jpg' ? 'Convert PDF to ' : 'Convert Images to '}
-                <span className="title-gradient">{mode === 'pdf-to-jpg' ? 'High-Res JPG' : 'Single PDF'}</span>
-              </h1>
-
-              <p className="text-lg text-slate-400 max-w-2xl mb-12">
-                Securely convert your documents without them ever leaving your device.
-                Premium quality, lightning fast, and completely free.
-              </p>
-
-              <DropZone
-                onFileSelect={handleFileSelect}
-                accept={mode === 'pdf-to-jpg' ? { "application/pdf": [".pdf"] } : { "image/jpeg": [".jpg", ".jpeg"], "image/png": [".png"] }}
-                multiple={mode === 'jpg-to-pdf'}
-                text={mode === 'pdf-to-jpg' ? "Drop your PDF here" : "Drop your Images (JPG/PNG)"}
-              />
-
-              <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-4xl w-full">
-                {[
-                  { title: "Private", desc: "Files never upload to any server." },
-                  { title: "Fast", desc: "Powered by WebAssembly for speed." },
-                  { title: "Free", desc: "No limits, no watermarks." }
-                ].map((item, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <h3 className="font-semibold text-white mb-1">{item.title}</h3>
-                    <p className="text-sm text-slate-400">{item.desc}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full px-4">
+                {/* PDF to JPG Card */}
+                <button
+                  onClick={() => handleModeSelect('pdf-to-jpg')}
+                  className="group flex flex-col items-start p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-indigo-500/50 hover:bg-white/10 transition-all text-left"
+                >
+                  <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-4 rounded-xl text-white mb-6 group-hover:scale-110 transition-transform">
+                    <FileText size={32} />
                   </div>
-                ))}
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">PDF to JPG</h3>
+                  <p className="text-slate-400 mb-6">Extract high-quality images from your PDF documents.</p>
+                  <div className="mt-auto flex items-center text-sm font-medium text-slate-500 group-hover:text-white transition-colors">
+                    Start Conversion <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </button>
+
+                {/* JPG to PDF Card */}
+                <button
+                  onClick={() => handleModeSelect('jpg-to-pdf')}
+                  className="group flex flex-col items-start p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-white/10 transition-all text-left"
+                >
+                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-xl text-white mb-6 group-hover:scale-110 transition-transform">
+                    <Images size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">JPG to PDF</h3>
+                  <p className="text-slate-400 mb-6">Compile multiple images into a single professional PDF.</p>
+                  <div className="mt-auto flex items-center text-sm font-medium text-slate-500 group-hover:text-white transition-colors">
+                    Start Conversion <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </button>
               </div>
             </motion.div>
           ) : (
             <motion.div
-              key="converter"
-              className="w-full"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
+              key="converter-view"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="w-full flex flex-col items-center"
             >
-              {mode === 'pdf-to-jpg' && file && (
-                <Converter file={file} onReset={reset} />
-              )}
-              {mode === 'jpg-to-pdf' && fileList.length > 0 && (
-                <JpgToPdfConverter files={fileList} onReset={reset} />
-              )}
+              {/* Back Button */}
+              <div className="w-full max-w-6xl mb-8 flex justify-start">
+                <button
+                  onClick={goHome}
+                  className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/5"
+                >
+                  <ArrowLeft size={18} />
+                  Back to Home
+                </button>
+              </div>
+
+              <AnimatePresence mode='wait'>
+                {(!file && fileList.length === 0) ? (
+                  <motion.div
+                    key="landing"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="w-full flex flex-col items-center text-center"
+                  >
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm mb-6 animate-pulse-ring">
+                      <Zap size={14} />
+                      <span>100% Client-Side Conversion</span>
+                    </div>
+
+                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+                      {mode === 'pdf-to-jpg' ? 'Convert PDF to ' : 'Convert Images to '}
+                      <span className="title-gradient">{mode === 'pdf-to-jpg' ? 'High-Res JPG' : 'Single PDF'}</span>
+                    </h1>
+
+                    <p className="text-lg text-slate-400 max-w-2xl mb-12">
+                      {mode === 'pdf-to-jpg'
+                        ? "Securely extract pages as individual images."
+                        : "Combine your photos into a document instantly."
+                      }
+                      <br />
+                      Premium quality, lightning fast, and completely free.
+                    </p>
+
+                    <DropZone
+                      onFileSelect={handleFileSelect}
+                      accept={mode === 'pdf-to-jpg' ? { "application/pdf": [".pdf"] } : { "image/jpeg": [".jpg", ".jpeg"], "image/png": [".png"] }}
+                      multiple={mode === 'jpg-to-pdf'}
+                      text={mode === 'pdf-to-jpg' ? "Drop your PDF here" : "Drop your Images (JPG/PNG)"}
+                    />
+
+                    <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-4xl w-full">
+                      {[
+                        { title: "Private", desc: "Files never upload to any server." },
+                        { title: "Fast", desc: "Powered by WebAssembly for speed." },
+                        { title: "Free", desc: "No limits, no watermarks." }
+                      ].map((item, i) => (
+                        <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                          <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                          <p className="text-sm text-slate-400">{item.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="converter"
+                    className="w-full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                  >
+                    {mode === 'pdf-to-jpg' && file && (
+                      <Converter file={file} onReset={reset} />
+                    )}
+                    {mode === 'jpg-to-pdf' && fileList.length > 0 && (
+                      <JpgToPdfConverter files={fileList} onReset={reset} />
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>
