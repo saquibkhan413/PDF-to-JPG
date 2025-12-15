@@ -53,7 +53,7 @@ function App() {
               <FileHeart className="text-white" size={24} />
             </div>
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-              PDF2JPG
+              iHatePDF
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -207,7 +207,7 @@ function App() {
       </main>
 
       <footer className="py-6 text-center text-slate-600 text-sm relative z-10">
-        <p>© {new Date().getFullYear()} PDF2JPG. Built with React & Vite.</p>
+        <p>© {new Date().getFullYear()} iHatePDF. Built with React & Vite.</p>
       </footer>
     </div>
   );

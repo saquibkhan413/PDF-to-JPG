@@ -1,4 +1,4 @@
-# PDF to High-Res JPG Converter
+# iHatePDF - PDF & Image Converter
 
 ![Project Badge](https://img.shields.io/badge/Status-Active-success?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
@@ -17,7 +17,8 @@ Check out the live application here: **[https://pdf-to-jpg-five.vercel.app](http
 
 * **🔒 100% Client-Side Privacy:** Your documents never leave your device. All conversion happens locally in the browser.
 * **⚡ High-Res Output:** Generates premium quality JPGs suitable for professional use.
-* **🚀 Lightning Fast:** Built with Vite for instant loading and rapid processing.
+* **� Dual Mode:** Easily switch between **PDF to JPG** extraction and **JPG to PDF** compilation.
+* **�🚀 Lightning Fast:** Built with Vite for instant loading and rapid processing.
 * **📂 Drag & Drop Interface:** Simple, intuitive UI—just drop your file to start.
 * **🌑 Modern Dark Mode:** A clean, aesthetic user interface designed for focus.
 
